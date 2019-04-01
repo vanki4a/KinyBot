@@ -105,4 +105,4 @@ async def partnership():
 	await bot.say(':trophy:')
 	await bot.say('``To be a partner with us, you must have a group of at least 50-100 people in it``')
   
-  client.run(os.getenv('Token'))
+ client.run(os.getenv('Token'))
