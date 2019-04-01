@@ -1,1 +1,1 @@
-worker: python kinibot.py
+worker: python kinybot.py
