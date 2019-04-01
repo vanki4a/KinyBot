@@ -15,104 +15,104 @@ client = commands.Bot(command_prefix=';')
 ivan='445198123837554688'
 start=time.time()
 
-@bot.event
+@client.event
 async def on_ready():
 	print('Bot is online.')
 	print(client.user.name)
 	print(client.user.id)
 	await client.change_presence(game=discord.Game(name=';help',type=3))
 	
-@bot.command()
+@client.command()
 async def ping():
 	await client.say(':ping_pong:')
 	await client.say('**You pinged me haha**')
 	
-@bot.command(pass_context = True)
+@client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
 async def warn(ctx, userName: discord.User, *, message:str): 
     await client.send_message(userName, "You have been warned for: **{}**".format(message))
     await client.say(":warning: __**{0} Has Been Warned!**__ :warning: ** Reason:{1}** ".format(userName,message))
     pass
 	
-@bot.command()
+@client.command()
 async def invite():
 	await client.say(':gift:')
 	await client.say('https://discordapp.com/api/oauth2/authorize?client_id=559760760914313218&permissions=8&scope=bot')
 	
-@bot.command()
+@client.command()
 async def google():
 	await client.say(':envelope:')
 	await client.say('https://www.google.com')
 	
-@bot.command()
+@client.command()
 async def porn():
 	await client.say(':underage:')
 	await client.say('https://www.pornhub.com')
 	
-@bot.command()
+@client.command()
 async def support():
 	await client.say('https://discord.gg/sxNAB3e')
 	await client.say('**Support group for bugs in bot!**')
 		
-@bot.command()
+@client.command()
 async def twitch():
 	await client.say(':mouse_three_button:')
 	await client.say('https://twitch.tv')
 	
-@bot.command()
+@client.command()
 async def youtube():
 	await client.say(':camera:')
 	await client.say('https://youtube.com')
 	
-@bot.command()
+@client.command()
 async def tenorgif():
 	await client.say(':horse:')
 	await client.say('https://tenor.com')
 	
-@bot.command()
+@client.command()
 async def filmi2k():
 	await client.say(':film_frames:')
 	await client.say('https://filmi2k.com')
 	
-@bot.command()
+@client.command()
 async def bug():
 	await client.say(':rotating_light:')
 	await client.say('**You bug my system :(**')
 	
-@bot.command()
+@client.command()
 async def hack():
 	await client.say('**Haha I hack you,now I delete your account!** **(kappa123)** :smile:')
 	
-@bot.command()
+@client.command()
 async def new():
 	await client.say(':confetti_ball:')
 	await client.say('``1.04.2019`` | **New prefix ";" | New command-userinfo,membercount,embed,serverinfo,clear |  Enjoy**')
 	
-@bot.command(pass_context=True)
+@client.command(pass_context=True)
 async def uptime(ctx):
 	now=time.time()
 	sec=int(now-start)
 	mins=int(sec//60)
 	await client.say(f'**Uptime is {sec} seconds!**')
 	
-@bot.command(pass_context=True)
+@client.command(pass_context=True)
 async def presence(ctx,text:str,type:int):
 	if ctx.message.author.id==(ivan):
 		await client.change_presence(game=discord.Game(name=text,type=type))
 	else:
 			await client.say('**No permissions!**')
 			
-@bot.command()
+@client.command()
 async def website():
 	await client.say(':inbox_tray:')
 	await client.say('http://kinysite.weebly.com')
 	
-@bot.command()
+@client.command()
 async def partnership():
 	await client.say(':trophy:')
 	await client.say('``To be a partner with us, you must have a group of at least 50-100 people in it``')
 	
-@bot.command(pass_context = True)
+@client.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
 async def userinfo(ctx, user: discord.Member):
     r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
@@ -125,7 +125,7 @@ async def userinfo(ctx, user: discord.Member):
     embed.set_thumbnail(url=user.avatar_url)
     await client.say(embed=embed)
     
-@bot.command(pass_context=True, aliases=['server'])
+@client.command(pass_context=True, aliases=['server'])
 @commands.has_permissions(kick_members=True)
 async def membercount(ctx, *args):
     """
@@ -159,7 +159,7 @@ async def membercount(ctx, *args):
     await client.send_message(ctx.message.channel, embed=em)
     await client.delete_message(ctx.message)
     
-@bot.command(pass_context=True)
+@client.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def embed(ctx, *args):
     """
@@ -171,7 +171,7 @@ async def embed(ctx, *args):
     color = discord.Color((r << 16) + (g << 8) + b)
     await bot.send_message(ctx.message.channel, embed=Embed(color = color, description=text))
     
-@bot.command(pass_context=True)  
+@client.command(pass_context=True)  
 @commands.has_permissions(kick_members=True)     
 
 async def serverinfo(ctx):
@@ -200,7 +200,7 @@ async def serverinfo(ctx):
 
     return await client.say(embed = join);
     
-@bot.command(pass_context = True)
+@client.command(pass_context = True)
 @commands.has_permissions(manage_messages=True)  
 async def clear(ctx, number):
  
@@ -224,7 +224,7 @@ async def clear(ctx, number):
  
     await client.delete_messages(mgs)
     
-@bot.command(pass_context=True)
+@client.command(pass_context=True)
 async def poll(ctx, question, *options: str):
         if len(options) <= 1:
             await client.say('``You need more than one option to make a poll!``')
@@ -249,7 +249,7 @@ async def poll(ctx, question, *options: str):
         embed.set_footer(text='Poll ID: {}'.format(react_message.id))
         await client.edit_message(react_message, embed=embed)
 
-@bot.command(pass_context=True)
+@client.command(pass_context=True)
 async def guess(ctx, number):
     try:
         arg = random.randint(1, 10)
