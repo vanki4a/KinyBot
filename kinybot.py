@@ -20,97 +20,97 @@ async def on_ready():
 	print('Bot is online.')
 	print(bot.user.name)
 	print(bot.user.id)
-	await bot.change_presence(game=discord.Game(name=';help',type=3))
+	await client.change_presence(game=discord.Game(name=';help',type=3))
 	
 @bot.command()
 async def ping():
-	await bot.say(':ping_pong:')
-	await bot.say('**You pinged me haha**')
+	await client.say(':ping_pong:')
+	await client.say('**You pinged me haha**')
 	
 @bot.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
 async def warn(ctx, userName: discord.User, *, message:str): 
-    await bot.send_message(userName, "You have been warned for: **{}**".format(message))
-    await bot.say(":warning: __**{0} Has Been Warned!**__ :warning: ** Reason:{1}** ".format(userName,message))
+    await client.send_message(userName, "You have been warned for: **{}**".format(message))
+    await client.say(":warning: __**{0} Has Been Warned!**__ :warning: ** Reason:{1}** ".format(userName,message))
     pass
 	
 @bot.command()
 async def invite():
-	await bot.say(':gift:')
-	await bot.say('https://discordapp.com/api/oauth2/authorize?client_id=559760760914313218&permissions=8&scope=bot')
+	await client.say(':gift:')
+	await client.say('https://discordapp.com/api/oauth2/authorize?client_id=559760760914313218&permissions=8&scope=bot')
 	
 @bot.command()
 async def google():
-	await bot.say(':envelope:')
-	await bot.say('https://www.google.com')
+	await client.say(':envelope:')
+	await client.say('https://www.google.com')
 	
 @bot.command()
 async def porn():
-	await bot.say(':underage:')
-	await bot.say('https://www.pornhub.com')
+	await client.say(':underage:')
+	await client.say('https://www.pornhub.com')
 	
 @bot.command()
 async def support():
-	await bot.say('https://discord.gg/sxNAB3e')
-	await bot.say('**Support group for bugs in bot!**')
+	await client.say('https://discord.gg/sxNAB3e')
+	await client.say('**Support group for bugs in bot!**')
 		
 @bot.command()
 async def twitch():
-	await bot.say(':mouse_three_button:')
-	await bot.say('https://twitch.tv')
+	await client.say(':mouse_three_button:')
+	await client.say('https://twitch.tv')
 	
 @bot.command()
 async def youtube():
-	await bot.say(':camera:')
-	await bot.say('https://youtube.com')
+	await client.say(':camera:')
+	await client.say('https://youtube.com')
 	
 @bot.command()
 async def tenorgif():
-	await bot.say(':horse:')
-	await bot.say('https://tenor.com')
+	await client.say(':horse:')
+	await client.say('https://tenor.com')
 	
 @bot.command()
 async def filmi2k():
-	await bot.say(':film_frames:')
-	await bot.say('https://filmi2k.com')
+	await client.say(':film_frames:')
+	await client.say('https://filmi2k.com')
 	
 @bot.command()
 async def bug():
-	await bot.say(':rotating_light:')
-	await bot.say('**You bug my system :(**')
+	await client.say(':rotating_light:')
+	await client.say('**You bug my system :(**')
 	
 @bot.command()
 async def hack():
-	await bot.say('**Haha I hack you,now I delete your account!** **(kappa123)** :smile:')
+	await client.say('**Haha I hack you,now I delete your account!** **(kappa123)** :smile:')
 	
 @bot.command()
 async def new():
-	await bot.say(':confetti_ball:')
-	await bot.say('``1.04.2019`` | **New prefix ";" | New command-userinfo,membercount,embed,serverinfo,clear |  Enjoy**')
+	await client.say(':confetti_ball:')
+	await client.say('``1.04.2019`` | **New prefix ";" | New command-userinfo,membercount,embed,serverinfo,clear |  Enjoy**')
 	
 @bot.command(pass_context=True)
 async def uptime(ctx):
 	now=time.time()
 	sec=int(now-start)
 	mins=int(sec//60)
-	await bot.say(f'**Uptime is {sec} seconds!**')
+	await client.say(f'**Uptime is {sec} seconds!**')
 	
 @bot.command(pass_context=True)
 async def presence(ctx,text:str,type:int):
 	if ctx.message.author.id==(ivan):
-		await bot.change_presence(game=discord.Game(name=text,type=type))
+		await client.change_presence(game=discord.Game(name=text,type=type))
 	else:
-			await bot.say('**No permissions!**')
+			await client.say('**No permissions!**')
 			
 @bot.command()
 async def website():
-	await bot.say(':inbox_tray:')
-	await bot.say('http://kinysite.weebly.com')
+	await client.say(':inbox_tray:')
+	await client.say('http://kinysite.weebly.com')
 	
 @bot.command()
 async def partnership():
-	await bot.say(':trophy:')
-	await bot.say('``To be a partner with us, you must have a group of at least 50-100 people in it``')
+	await client.say(':trophy:')
+	await client.say('``To be a partner with us, you must have a group of at least 50-100 people in it``')
 	
 @bot.command(pass_context = True)
 @commands.has_permissions(kick_members=True)     
@@ -123,7 +123,7 @@ async def userinfo(ctx, user: discord.Member):
     embed.add_field(name="``Highest role``", value=user.top_role)
     embed.add_field(name="``Joined``", value=user.joined_at)
     embed.set_thumbnail(url=user.avatar_url)
-    await bot.say(embed=embed)
+    await client.say(embed=embed)
     
 @bot.command(pass_context=True, aliases=['server'])
 @commands.has_permissions(kick_members=True)
@@ -134,7 +134,7 @@ async def membercount(ctx, *args):
     permissions of the guilds administrators!
     """
     if ctx.message.channel.is_private:
-        await bot.delete_message(ctx.message)
+        await client.delete_message(ctx.message)
         return
 
     g = ctx.message.server
@@ -156,8 +156,8 @@ async def membercount(ctx, *args):
                         "Created:   %s\n" \
                         "```" % (membs, membs_on, users, users_on, bots, bots_on, created)
 
-    await bot.send_message(ctx.message.channel, embed=em)
-    await bot.delete_message(ctx.message)
+    await client.send_message(ctx.message.channel, embed=em)
+    await client.delete_message(ctx.message)
     
 @bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
@@ -198,7 +198,7 @@ async def serverinfo(ctx):
     join.add_field(name = '__Roles (%s)__'%str(role_length), value = roles);
     join.set_footer(text ='Created: %s'%time);
 
-    return await bot.say(embed = join);
+    return await client.say(embed = join);
     
 @bot.command(pass_context = True)
 @commands.has_permissions(manage_messages=True)  
@@ -211,26 +211,26 @@ async def clear(ctx, number):
         mgs.append(x)            
        
     try:
-        await bot.delete_messages(mgs)          
-        await bot.say(str(number)+' messages deleted')
+        await client.delete_messages(mgs)          
+        await client.say(str(number)+' messages deleted')
      
     except discord.Forbidden:
-        await bot.say(embed=Forbidden)
+        await client.say(embed=Forbidden)
         return
     except discord.HTTPException:
-        await bot.say('clear failed.')
+        await client.say('clear failed.')
         return         
    
  
-    await bot.delete_messages(mgs)
+    await client.delete_messages(mgs)
     
 @bot.command(pass_context=True)
 async def poll(ctx, question, *options: str):
         if len(options) <= 1:
-            await bot.say('``You need more than one option to make a poll!``')
+            await client.say('``You need more than one option to make a poll!``')
             return
         if len(options) > 10:
-            await bot.say('``You cannot make a poll for more than 10 things!``')
+            await client.say('``You cannot make a poll for more than 10 things!``')
             return
 
         if len(options) == 2 and options[0] == 'yes' and options[1] == 'no':
@@ -243,20 +243,20 @@ async def poll(ctx, question, *options: str):
             description += '\n {} {}'.format(reactions[x], option)
             r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
         embed = discord.Embed(title=question, description=''.join(description), color = discord.Color((r << 16) + (g << 8) + b))
-        react_message = await bot.say(embed=embed)
+        react_message = await client.say(embed=embed)
         for reaction in reactions[:len(options)]:
-            await bot.add_reaction(react_message, reaction)
+            await client.add_reaction(react_message, reaction)
         embed.set_footer(text='Poll ID: {}'.format(react_message.id))
-        await bot.edit_message(react_message, embed=embed)
+        await client.edit_message(react_message, embed=embed)
 
 @bot.command(pass_context=True)
 async def guess(ctx, number):
     try:
         arg = random.randint(1, 10)
     except ValueError:
-        await bot.say("``Invalid number``")
+        await client.say("``Invalid number``")
     else:
-        await bot.say('The correct answer is ' + str(arg))
+        await client.say('The correct answer is ' + str(arg))
 	
 
 client.run(os.getenv('Token'))
