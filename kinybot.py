@@ -74,14 +74,6 @@ async def filmi2k():
 	await client.say(':film_frames:')
 	await client.say('https://filmi2k.com')
 	
-@client.command()
-async def bug():
-	await client.say(':rotating_light:')
-	await client.say('**You bug my system :(**')
-	
-@client.command()
-async def hack():
-	await client.say('**Haha I hack you,now I delete your account!** **(kappa123)** :smile:')
 	
 @client.command()
 async def new():
