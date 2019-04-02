@@ -11,7 +11,7 @@ import time
 from discord.voice_client import VoiceClient
 from discord import Game, Embed, Color, Status, ChannelType
 
-client = commands.Bot(command_prefix=';')
+client = commands.client(command_prefix=';')
 ivan='445198123837554688'
 start=time.time()
 
