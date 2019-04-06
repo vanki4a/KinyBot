@@ -20,7 +20,7 @@ async def on_ready():
 	print('Bot is online.')
 	print(client.user.name)
 	print(client.user.id)
-	await client.change_presence(game=discord.Game(name='I love Nikol <3',type=3))
+	await client.change_presence(game=discord.Game(name=';help',type=4))
 	
 @client.command()
 async def ping():
