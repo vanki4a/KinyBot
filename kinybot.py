@@ -15,19 +15,6 @@ import asyncio
 import re
 import json
 import traceback
-import termcolor
-import discord.ext.commands
-from discord.ext.commands.errors import *
-import core.blame
-import core.keystore
-import core.settings
-import utils
-from queuedict import QueueDict
-from modules.reporter import report
-from advertising import AdvertisingMixin
-from patrons import PatronageMixin
-from discord.voice_client import VoiceClient
-from discord import Game, Embed, Color, Status, ChannelType
 
 client = commands.Bot(command_prefix=';')
 ivan='445198123837554688'
