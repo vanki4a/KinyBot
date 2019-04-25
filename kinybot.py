@@ -268,4 +268,24 @@ async def guess(ctx, number):
     else:
         await client.say('The correct answer is ' + str(arg))
 
+@client.group()
+async def calculator():
+    pass
+    
+@calculator.command(pass_context=True)
+async def add(ctx, a: int, b:int):
+    await client.say(a+b)
+    
+@calculator.command(pass_context=True)
+async def subtract(ctx, a: int, b:int):
+    await client.say(a-b)
+    
+@calculator.command(pass_context=True)
+async def multiply(ctx, a: int, b:int):
+    await client.say(a*b)
+    
+@calculator.command(pass_context=True)
+async def divide(ctx, a: int, b:int):
+    await client.say(a/b)
+	
 client.run(os.getenv('Token'))
