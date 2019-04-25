@@ -269,51 +269,12 @@ async def guess(ctx, number):
         await client.say('The correct answer is ' + str(arg))
 	
 warnings.simplefilter('default')
-logging.basicConfig(level = logging.INFO)
-sys.setrecursionlimit(2500)
-
-
-REQUIRED_PERMISSIONS_MESSAGE = '''\
-The bot does not have all the permissions it requires in order to run in this channel. It requires the following permissions:
- - Add reactions
- - Attach files
- - Embed links
- - Read message history
-Contact your server administrators to rectify this problem.
-You can seek additional support on the official mathbot server: https://discord.gg/JbJbRZS
-'''
-
-
-class MathBot(AdvertisingMixin, PatronageMixin, discord.ext.commands.AutoShardedBot):
-
-	def __init__(self, parameters):
-		super().__init__(
-			command_prefix=_determine_prefix,
-			pm_help=True,
-			shard_count=parameters.get('shards total'),
-			shard_ids=parameters.get('shards mine'),
-			max_messages=2000,
-			fetch_offline_members=False
-		)
-		self.parameters = parameters
-		self.release = parameters.get('release')
-		self.keystore = _create_keystore(parameters)
+ore = _create_keystore(parameters)
 		self.settings = core.settings.Settings(self.keystore)
 		self.command_output_map = QueueDict(timeout = 60 * 10) # 10 minute timeout
 		assert self.release in ['development', 'beta', 'release']
 		self.remove_command('help')
 		for i in _get_extensions(parameters):
-			self.load_extension(i)
-
-	def run(self):
-		super().run(self.parameters.get('token'))
-
-	async def on_message(self, message):
-		if self.release != 'production' or not message.author.bot:
-			if utils.is_private(message.channel) or self._can_post_in_guild(message):
-				context = await self.get_context(message)
-				perms = context.message.channel.permissions_for(context.me)
-				required = [
 					perms.add_reactions,
 					perms.attach_files,
 					perms.embed_links,
@@ -396,91 +357,7 @@ class MathBot(AdvertisingMixin, PatronageMixin, discord.ext.commands.AutoSharded
 			await destination.send(f'That command cannot be used in DMs.')
 		elif isinstance(error, MissingPermissions):
 			await destination.send(f'You are missing the following permissions required to run the command: {", ".join(error.missing_perms)}.')
-		elif isinstance(error, core.settings.DisabledCommandByServerOwner):
-			await destination.send(embed=discord.Embed(
-				title='Command disabled',
-				description=f'The sever owner has disabled that command in this location.',
-				colour=discord.Colour.orange()
-			))
-		elif isinstance(error, DisabledCommand):
-			await destination.send(embed=discord.Embed(
-				title='Command globally disabled',
-				description=f'That command is currently disabled. Either it relates to an unreleased feature or is undergoing maintaiance.',
-				colour=discord.Colour.orange()
-			))
-		elif isinstance(error, CommandInvokeError):
-			await self.report_error(destination, error.original, human_details)
-		else:
-			await self.report_error(destination, error, human_details)
-
-	async def report_error(self, destination, error, human_details):
-		tb = ''.join(traceback.format_exception(etype=type(error), value=error, tb=error.__traceback__))
-		termcolor.cprint(human_details, 'red')
-		termcolor.cprint(tb, 'blue')
-		try:
-			if destination is not None:
-				embed = discord.Embed(
-					title='An internal error occurred.',
-					colour=discord.Colour.red(),
-					description='A report has been automatically sent to the developer. If you wish to follow up, or seek additional assistance, you may do so at the mathbot server: https://discord.gg/JbJbRZS'
-				)
-				await destination.send(embed=embed)
-		finally:
-			await report(self, f'{self.shard_ids} {human_details}\n```\n{tb}\n```')
-
-
-def run(parameters):
-	if sys.getrecursionlimit() < 2500:
-		sys.setrecursionlimit(2500)
-	MathBot(parameters).run()
-
-
-@utils.listify
-def _get_extensions(parameters):
-	yield 'modules.about'
-	yield 'modules.blame'
-	yield 'modules.calcmod'
-	yield 'modules.dice'
-	# yield 'modules.greeter'
-	yield 'modules.heartbeat'
-	yield 'modules.help'
-	yield 'modules.latex'
-	yield 'modules.purge'
-	yield 'modules.reporter'
-	yield 'modules.settings'
-	yield 'modules.wolfram'
-	yield 'modules.reboot'
-	yield 'modules.oeis'
-	if parameters.get('release') == 'development':
-		yield 'modules.echo'
-		yield 'modules.throws'
-	yield 'patrons' # This is a little weird.
-	if parameters.get('release') == 'release':
-		yield 'modules.analytics'
-
-
-def _create_keystore(parameters):
-	keystore_mode = parameters.get('keystore mode')
-	if keystore_mode == 'redis':
-		return core.keystore.create_redis(
-			parameters.get('keystore redis url'),
-			parameters.get('keystore redis number')
-		)
-	if keystore_mode == 'disk':
-		return core.keystore.create_disk(parameters.get('keystore disk filename'))
-	raise ValueError(f'"{keystore_mode}" is not a valid keystore mode')
-
-
-async def _determine_prefix(bot, message):
-	if message.guild is None:
-		prefixes = ['= ', '=', '']
-	else:
-		custom = str(await bot.settings.get_server_prefix(message))
-		prefixes = [custom + ' ', custom]
-	return discord.ext.commands.when_mentioned_or(*prefixes)(bot, message)
-
-
-if __name__ == '__main__':
+		elif isinst
 					       
 
 client.run(os.getenv('Token'))
